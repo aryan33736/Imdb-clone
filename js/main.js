@@ -23,7 +23,7 @@ $(document).ready(() => {
   });
 });
 // localStorage.clear();
-
+var movie_fav=[];
 function getMoviesDropDown(searchText) {
   axios
     .get("https://www.omdbapi.com/?apikey=d48a63e2&s=" + searchText)
@@ -224,7 +224,6 @@ function saveMovie(movie) {
 // Fetching alarms from local storage
 function fetchMovie() {
   let movies = checkMovies();
-  let movie_fav=[];
   movies.forEach((movie) => {
     getMoviesById(movie);
   });
