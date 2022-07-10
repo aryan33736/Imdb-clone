@@ -4,17 +4,28 @@
 //   getMoviesDropDown(search);
 
 // }
-document.getElementById('searchText')
-    .addEventListener('keyup', function(event) {
-        if (event.code === 'Enter')
-        {
-      
-            event.preventDefault();
-        }else{
-          let searchText = $("#searchText").val();
-          getMoviesDropDown(searchText); 
-        }
+var movie_fav = [];
+window.onload = function () {
+  var temp = document.getElementById('searchText');
+  if (temp) {
+    temp.addEventListener('keyup', function (event) {
+      if (event.code === 'Enter') {
+        event.preventDefault();
+      } else {
+        let searchText = $("#searchText").val();
+        getMoviesDropDown(searchText);
+      }
     });
+  }
+}
+// document.getElementById('searchText').addEventListener('keyup', function (event) {
+//   if (event.code === 'Enter') {
+//     event.preventDefault();
+//   } else {
+//     let searchText = $("#searchText").val();
+//     getMoviesDropDown(searchText);
+//   }
+// });
 $(document).ready(() => {
   $("#searchForm").on("submit", (e) => {
     let searchText = $("#searchText").val();
@@ -110,18 +121,17 @@ function getMovies(searchText) {
 }
 
 function getMoviesById(id) {
-  let movie_fav=[];
   axios
     .get("https://www.omdbapi.com/?apikey=d48a63e2&i=" + id)
     .then((response) => {
       let movie = response.data;
       movie_fav.push(movie);
-     
+
     })
     .catch((err) => {
       console.log(err);
     });
-    
+
 }
 
 function movieSelected(id) {
@@ -177,11 +187,11 @@ function getMovie() {
 }
 
 
-function output_movie_fav(movie_fav){
-  console.log(movie_fav,movie_fav.length);
+function output_movie_fav(movie_fav) {
+  console.log(movie_fav, movie_fav.length);
 
   let output_favourite = "";
-  movie_fav.forEach((movie)=>{
+  movie_fav.forEach((movie) => {
     output_favourite += `
     <div class="col-md-3">
     <div class="well text-center">
@@ -228,8 +238,8 @@ function fetchMovie() {
     getMoviesById(movie);
   });
 
-  setTimeout(()=>{ output_movie_fav(movie_fav) },1000);
-  
+  setTimeout(() => { output_movie_fav(movie_fav) }, 1000);
+
 }
 
 
