@@ -1,10 +1,7 @@
-// function func(){
-
-//   let search = $("#searchText").val()+event.key;
-//   getMoviesDropDown(search);
-
-// }
+//Globally declared  array containing all the favourite movies of a user
 var movie_fav = [];
+
+// Function to give suggestion whenever user type in the search box.
 window.onload = function () {
   var temp = document.getElementById('searchText');
   if (temp) {
@@ -18,14 +15,9 @@ window.onload = function () {
     });
   }
 }
-// document.getElementById('searchText').addEventListener('keyup', function (event) {
-//   if (event.code === 'Enter') {
-//     event.preventDefault();
-//   } else {
-//     let searchText = $("#searchText").val();
-//     getMoviesDropDown(searchText);
-//   }
-// });
+
+
+// Function to give the movies with movie title specified in the search box after hitting enter.
 $(document).ready(() => {
   $("#searchForm").on("submit", (e) => {
     let searchText = $("#searchText").val();
@@ -33,7 +25,8 @@ $(document).ready(() => {
     e.preventDefault();
   });
 });
-// localStorage.clear();
+
+// function to get movies for suggestion from the OMDB API.
 function getMoviesDropDown(searchText) {
   axios
     .get("https://www.omdbapi.com/?apikey=d48a63e2&s=" + searchText)
@@ -45,7 +38,6 @@ function getMoviesDropDown(searchText) {
         output += `
             <div class="drop-down drop-row">
 
-         
            <div><img src="${movie.Poster}" height="50" width="100"></div> 
            <div class="drop-movie">${movie.Title}</div>
    
@@ -68,22 +60,7 @@ function getMoviesDropDown(searchText) {
     });
 }
 
-
-{/* <table class="table">
-<tr class="drop-row">
-<td >        ${movie.Title}</td>
-<td >       <a onclick="saveMovie('${movie.imdbID}')" class="btn btn-danger">
-<i class="fa fa-heart"></i></a></td>
-
-<td>  <a onclick="movieSelected('${movie.imdbID}')" class="btn btn-warning" href="#">Know More!</a>
-</td>
-</tr>
-
-</table> */}
-
-
-
-
+// fucntion to get the movie from OMDB API with search text on hitting enter.
 function getMovies(searchText) {
   axios
     .get("https://www.omdbapi.com/?apikey=d48a63e2&s=" + searchText)
@@ -120,26 +97,31 @@ function getMovies(searchText) {
     });
 }
 
+
+// function to get movies by ID, this function will get all the movies with the id stores in the "movies" array 
+// in the local storage and finally it will store all the information of favourite movies in the "movie_fav" array.
 function getMoviesById(id) {
   axios
     .get("https://www.omdbapi.com/?apikey=d48a63e2&i=" + id)
     .then((response) => {
       let movie = response.data;
       movie_fav.push(movie);
-
     })
     .catch((err) => {
       console.log(err);
     });
-
 }
 
+
+// function called when user press on "Movie Details" or "Know More" button to get the full information of Movie.
 function movieSelected(id) {
   sessionStorage.setItem("movieId", id);
   window.location = "movie.html";
   return false;
 }
 
+
+// Fucntion called to fetch information of a particular movie from OMDB API with movie id.
 function getMovie() {
   let movieId = sessionStorage.getItem("movieId");
 
@@ -186,10 +168,8 @@ function getMovie() {
     });
 }
 
-
+// Fucntion to display all the favourite movies on the favourite movie page .
 function output_movie_fav(movie_fav) {
-  console.log(movie_fav, movie_fav.length);
-
   let output_favourite = "";
   movie_fav.forEach((movie) => {
     output_favourite += `
@@ -237,12 +217,10 @@ function fetchMovie() {
   movies.forEach((movie) => {
     getMoviesById(movie);
   });
-
   setTimeout(() => { output_movie_fav(movie_fav) }, 1000);
-
 }
 
-
+// function to delete mnovie from local storage of the system on pressing remove from favourites.
 function deleteMovieFromLocal(movie) {
   let movies = checkMovies();
 
@@ -251,6 +229,4 @@ function deleteMovieFromLocal(movie) {
 
   localStorage.setItem("movies", JSON.stringify(movies));
   location.reload();
-
-  // fetchMovie();
 }
