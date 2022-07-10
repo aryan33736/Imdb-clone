@@ -26,7 +26,7 @@ $(document).ready(() => {
 
 function getMoviesDropDown(searchText) {
   axios
-    .get("http://www.omdbapi.com/?apikey=d48a63e2&s=" + searchText)
+    .get("https://www.omdbapi.com/?apikey=d48a63e2&s=" + searchText)
     .then((response) => {
       console.log(response);
       let movies = response.data.Search;
@@ -76,7 +76,7 @@ function getMoviesDropDown(searchText) {
 
 function getMovies(searchText) {
   axios
-    .get("http://www.omdbapi.com/?apikey=d48a63e2&s=" + searchText)
+    .get("https://www.omdbapi.com/?apikey=d48a63e2&s=" + searchText)
     .then((response) => {
       console.log(response);
       let movies = response.data.Search;
@@ -113,7 +113,7 @@ function getMovies(searchText) {
 let movie_fav=[];
 function getMoviesById(id) {
   axios
-    .get("http://www.omdbapi.com/?apikey=d48a63e2&i=" + id)
+    .get("https://www.omdbapi.com/?apikey=d48a63e2&i=" + id)
     .then((response) => {
       let movie = response.data;
       movie_fav.push(movie);
@@ -135,7 +135,7 @@ function getMovie() {
   let movieId = sessionStorage.getItem("movieId");
 
   axios
-    .get("http://www.omdbapi.com/?apikey=d48a63e2&i=" + movieId)
+    .get("https://www.omdbapi.com/?apikey=d48a63e2&i=" + movieId)
     .then((response) => {
       console.log(response);
       let movie = response.data;
