@@ -203,10 +203,10 @@ function output_movie_fav(movie_fav){
 }
 
 
-let movies = [];
 // Is movie saved in Local Storage?
 function checkMovies() {
   const isPresent = localStorage.getItem("movies");
+  let movies = [];
   if (isPresent) movies = JSON.parse(isPresent);
 
   return movies;
