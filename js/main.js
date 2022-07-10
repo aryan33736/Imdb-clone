@@ -23,7 +23,6 @@ $(document).ready(() => {
   });
 });
 // localStorage.clear();
-var movie_fav=[];
 function getMoviesDropDown(searchText) {
   axios
     .get("https://www.omdbapi.com/?apikey=d48a63e2&s=" + searchText)
@@ -111,6 +110,7 @@ function getMovies(searchText) {
 }
 
 function getMoviesById(id) {
+  let movie_fav=[];
   axios
     .get("https://www.omdbapi.com/?apikey=d48a63e2&i=" + id)
     .then((response) => {
