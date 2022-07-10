@@ -110,7 +110,6 @@ function getMovies(searchText) {
     });
 }
 
-let movie_fav=[];
 function getMoviesById(id) {
   axios
     .get("https://www.omdbapi.com/?apikey=d48a63e2&i=" + id)
@@ -225,7 +224,7 @@ function saveMovie(movie) {
 // Fetching alarms from local storage
 function fetchMovie() {
   let movies = checkMovies();
-
+  let movie_fav=[];
   movies.forEach((movie) => {
     getMoviesById(movie);
   });
